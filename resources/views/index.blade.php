@@ -1,47 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+@if(Session::has('success'))
+	<div class="text-center">
+		<div class="alert alert-success alert-dismissible fade show fixed-top" role="alert">
+			<strong>{{ Session::get('success') }}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
+@endif
+
+@if(Session::has('error'))
+	<div class="text-center">
+		<div class="alert alert-error alert-dismissible fade show fixed-top" role="alert">
+			<strong>{{ Session::get('error') }}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
+@endif
+
+
 <div class="container">
-    
     <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">0.00 MZN</li>
-  </ol>
-</nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">0.00 MZN</li>
+        </ol>
+    </nav>
 
-<form>
-  <div class="form-group">
-      <h1 class="display-4">Deposito</h1>
+    <form  method="POST" role="form" action="{{ action('HomeController@payment')}}">
+        @csrf
+        <div class="form-group">
+            <h1 class="display-4">Deposito</h1>
+            <label for="phone">Telefone</label>
+            <input type="number" name="phone" class="form-control" id="phone" placeholder="84xxxxxxx">
+        </div>
 
-    <label for="exampleInputEmail1">Telefone</label>
-    <input type="number" class="form-control" id="idnumerodep" aria-describedby="emailHelp" placeholder="84xxxxxxx">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Valor</label>
-    <input type="number" class="form-control" id="idvalordep" placeholder="0">
-  </div>
-  <button type="submit" class="btn btn-primary">Depositar</button>
-</form>
-
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Levantamento</h1>
-
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Telefone</label>
-    <input type="number" class="form-control" id="idnumero" aria-describedby="emailHelp" placeholder="84xxxxxxx">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Valor</label>
-    <input type="number" class="form-control" id="idvalor" placeholder="0">
-  </div>
-  <button type="submit" class="btn btn-primary">Levantar</button>
-</form>
-  </div>
-</div>
-
+        <div class="form-group">
+            <label for="value">Valor</label>
+            <input type="number" name="value" class="form-control" id="value" placeholder="0">
+        </div>
+        <button type="submit" class="btn btn-primary">Depositar</button>
+    </form>
 </div>
 @endsection
